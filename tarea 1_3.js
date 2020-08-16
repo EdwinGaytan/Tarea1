@@ -1,17 +1,64 @@
+var squares = [];
+var pieces = [];
+
 function setup() {
-  createCanvas(400, 400);
-  background(0);
+  createCanvas(200, 200);
 
-fill('red'); // Use 'redValue' in new fill
-circle(100, 100, 180); // Draw right rectangle
+  function Square(_x, _y) {
+  this.x = _x;
+  this.y = _y;
 
-fill(255);
-arc(100, 100, 135, 145, radians(200), radians(370), CHORD);
+  this.occupied = false;
+
+  this.highlight = function() {
+    push();
+    strokeWeight(2);
+    stroke(255, 255, 0);
+    noFill();
+    rect(this.x, this.y, 50, 50);
+    pop();
+  }
+}
   
-fill(255); // Use color variable 'c' as fill color
-arc(100, 100, 135, 135, radians(15), radians(195), CHORD);
-  
-   
-  
-  
+  // Create the squares
+  for (y = 0; y < height; y += 50) {
+    for (x = 0; x < width; x += 50) {
+      square = new Square(x, y);
+      squares.push(square);
+    }
+  }
+
+ }
+
+function draw() {
+  background(255);
+  drawBoard();
+}
+
+// Function just for drawing the board
+function drawBoard() {
+  black = 220;
+  white = 30;
+  for (y = 0; y < height; y += 50) {
+    for (x = 0; x < width; x += 50) {
+      if (x % 100 == 0) {
+        if (y % 100 == 0) {
+          fill(black);
+        }
+        if (y % 100 == 50) {
+          fill(white);
+        }
+      }
+      if (x % 100 == 50) {
+        if (y % 100 == 50) {
+          fill(black);
+        }
+        if (y % 100 == 0) {
+          fill(white);
+        }
+      }
+
+      rect(x, y, 50, 50);
+    }
+  }
 }
